@@ -1,0 +1,103 @@
+<section class="table">
+  <div class="controls">
+      <button (click)="showAllTaskGroups()">Show All</button>
+      <button (click)="hideAllTaskGroups()">Hide All</button>
+      <button (click)="edit()" *ngIf="isSprint()">Edit</button>
+      <button (click)="done()" *ngIf="isEdit() && !isCreate()" class="btn-done">Done</button>
+      <label *ngIf="isCreate()">Total Points: {{ totalPoints }}</label>
+  </div>
+  <div class="group"
+      *ngFor="let taskGroup of sprint.taskGroups; index as groupIndex; trackBy: trackByFunction">
+    <div class="group-panel-container">
+      <div class="group-panel"
+        (click)="toggleTaskGroup(groupIndex)">
+      </div>
+      <input class="group-name"
+        [(ngModel)]="taskGroup.name"
+        placeholder="Group Name"
+        type="text"
+        [readonly]="isComplete()"/>
+      <button *ngIf="isCreate() || isEdit()"
+        class="btn-delete-group"
+        (click)="deleteTaskGroup(taskGroup)">Delete Group
+      </button>
+    </div>
+    <div appGroupTasks class="tasks tasks-visible" [index]="groupIndex" >
+      <div class="add-task-container-offset" *ngIf="isCreate() || isEdit()">
+        <label appAddTaskLabel
+          [index]="groupIndex"
+          (click)="openAddTaskGroup(groupIndex, task)"
+          class="add-task-label">
+          &nbsp;+ Add Task
+        </label>
+        <div class="add-task-container"
+          appAddTaskGroup="true"
+          [index]="groupIndex">
+          <input #task appAddTaskInput [index]="groupIndex"
+            (keydown.enter)="addTask(groupIndex, task, estimate)"
+            class="add-task-name"
+            placeholder="New Task"
+            type="text"
+            required/>
+          <input #estimate appAddTaskInput [index]="groupIndex"
+            (keydown.enter)="addTask(groupIndex, task, estimate)"
+            class="add-task-estimate"
+            placeholder="Estimate"
+            type="number"
+            required/>
+          <button class="btn-add-task"
+            (click)="addTask(groupIndex, task, estimate)">Add
+          </button>
+        </div>
+      </div>
+      <div class="tasks-labels" *ngIf="taskGroup.tasks.length > 0">
+        <label class="lbl-tasks"
+          [ngClass]="{'td-long':!isEdit(),'td-short':isEdit()}">Tasks</label>
+        <label class="lbl-ideal">Ideal Estimate</label>
+        <label class="lbl-actual" *ngIf="isSprint() || isEdit()">Actual Estimate</label>
+      </div>
+      <div class="tasks-container">
+        <div class="task" *ngFor="let task of taskGroup.tasks; index as taskIndex">
+          <textarea [(ngModel)]="task.name"
+            [appTextareaAutoResize]="task.name"
+            class="task-description"
+            [ngClass]="{'td-long':!isEdit(),'td-short':isEdit()}"
+            style="height: 0px;"
+            type="text"
+            [readonly]="isComplete()">
+          </textarea>
+          <input [(ngModel)]="task.originalEstimate"
+            class="task-ideal-estimate"
+            type="number"
+            [readonly]="isComplete() || isSprint()"/>              
+          <input [(ngModel)]="task.remainingEstimate"
+            *ngIf="isSprint() || isEdit()"
+            class="task-actual-estimate"
+            type="number"
+            [readonly]="isComplete()"/>
+          <button *ngIf="isCreate() || isEdit()"
+            class="btn-delete-task"
+            title="Delete task"
+            (click)="deleteTask(groupIndex, taskIndex)"><i class="fa fa-times icon-adj"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="add-group" *ngIf="isCreate() || isEdit()">
+    <label addGroupLabel
+      *ngIf="!addGroupContainerIsVisible"
+      class="add-group-label"
+      (click)="showAddGroupContainer(addGroupName)">
+      &nbsp;+ Add Group
+    </label>
+    <div *ngIf="addGroupContainerIsVisible">
+      <input #addGroupInput addGroupInput class="add-group-name"
+        [(ngModel)]="newGroup.name"
+        (keydown.enter)="addTaskGroup()"
+        placeholder="New Group"
+        type="text"/>
+      <button class="btn-add-group" (click)="addTaskGroup()">Add</button>
+    </div>
+  </div>
+</section>

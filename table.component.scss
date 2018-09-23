@@ -1,0 +1,292 @@
+$color-grey: rgba(230, 230, 230, 1);
+$color-middle-grey: rgba(220, 220, 220, 1);
+$color-dark-grey:rgba(210, 210, 210, 1);
+$color-grey-font:rgb(90, 90, 90);
+$color-green:rgba(40, 167, 69, 1);
+$color-dark-green:rgb(28, 139, 54);
+$color-red:rgb(219, 73, 47);
+$border-bottom: 1px solid $color-dark-grey;
+$border-radius: 0.5rem;
+$small-font: 0.8rem;
+$input-padding: 0.05rem 0.4rem;
+
+@mixin transition($property) {
+    -webkit-transition: $property;
+        -ms-transition: $property;
+            transition: $property;
+}
+
+//extendables
+%btn-link {
+    color: $color-grey-font;
+    border-color: $color-dark-grey;
+    border-radius: $border-radius;
+    background-color: transparent;
+    margin: 0rem 0.25rem;
+    padding: 0rem 0.5rem;
+    cursor: pointer;
+}
+
+%btn-link:hover {
+    background-color: $color-dark-grey;
+    border-color: transparent;
+}
+
+%btn-add {
+    background-color: $color-green;
+    color: #fff;
+    border: none;
+    cursor: pointer
+}
+
+%btn-add:hover {
+    background-color: $color-dark-green;
+}
+
+%btn-label {
+    background-color: $color-middle-grey;
+    color: $color-grey-font;
+    border-radius: $border-radius;
+    margin: 0rem 0.25rem;
+    padding: 0rem 0.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+%btn-label:hover {
+    background-color: $color-dark-grey;
+}
+
+%hidden-field {
+    background-color: $color-grey;
+    border: none;
+}
+
+%hidden-field:hover {
+    background-color: $color-dark-grey;
+    border: none;
+}
+
+%hidden-field:focus {
+    background-color: #fff;
+    cursor: text;
+}
+
+%delete:hover {
+    background-color: $color-red;
+    color: #fff;
+}
+
+//rules
+*:focus {
+    outline: none;
+}
+
+input {
+    padding: 0.05rem 0.4rem;
+}
+
+input:read-only {
+    background-color: $color-grey;
+    border: none;
+}
+
+.table {
+    width: 100%;
+}
+
+.table > .controls {
+    background-color: $color-grey;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    border-bottom: $border-bottom;
+    padding: 0.5rem 1.25rem;
+    text-align: right;
+}
+
+.controls > button {
+    @extend %btn-link;
+}
+
+.controls > .btn-done {
+    background-color: $color-green;
+    color: #fff;
+    border: none;
+}
+
+.controls > .btn-done:hover {
+    background-color: $color-dark-green;
+}
+
+.controls > label {
+    margin: 0rem;
+    margin-left: 0.5rem;
+}
+
+.table > .group {
+    background-color: $color-grey;
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.group-panel-container {
+    border-bottom: $border-bottom;
+    position: relative;
+}
+
+.group-panel {
+    background-color: $color-grey;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.group-name {
+    @extend %hidden-field;
+    position: absolute;
+    top:0.65rem;
+    width: 45%;
+    margin-left: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.btn-delete-group {
+    @extend %btn-link;
+    @extend %delete;
+    position: absolute;
+    top: 0.7rem;
+    right: 1.25rem;
+}
+
+.tasks {
+    @include transition(all 0.5s ease-out);
+    max-height: 0vh;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.tasks-visible {
+    max-height: 100vh;
+    visibility: visible;
+    opacity: 1;
+}
+
+.add-task-container-offset {
+    padding: 0.75rem 3rem 0.5rem 3rem;
+}
+
+.add-task-label {
+    @extend %btn-label;
+    width: 100%;
+    margin: 0rem;
+}
+
+.add-task-container {
+    display: flex;
+    width: 100%;
+}
+
+.add-task-name {
+    width: 60%;
+}
+
+.add-task-estimate {
+    width: 20%;
+}
+
+.btn-add-task {
+    @extend %btn-add;
+    width: 20%;
+}
+
+.tasks-labels {
+    color: $color-grey-font;
+    font-size: $small-font;
+    display: flex;
+    padding: 0.75rem 1.25rem 0 2rem;
+}
+
+.tasks-labels > .lbl-tasks {
+    align-self: flex-end;
+}
+
+.tasks-labels > .lbl-ideal  {
+    width: 10%;
+    margin-left: 0.8rem;
+}
+
+.tasks-labels > .lbl-actual  {
+    width: 10%;
+    margin-left: 0.5rem;
+}
+
+.task {
+    display: flex;
+    background-color: #fff;
+    margin: 0rem 0.75rem 0.5rem;
+    padding: 0.5rem;
+    box-shadow: 0px 1px 1px $color-dark-grey;
+}
+
+.task-description {
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border: none;
+    resize: none;
+    overflow: hidden;
+}
+
+.td-long {
+    width: 80%;
+}
+
+.td-short {
+    width: 70%;
+}
+
+.task-ideal-estimate,
+.task-actual-estimate {
+    width: 10%;
+    margin-left: 0.5rem;
+}
+
+.btn-delete-task {
+    @extend %btn-link;
+    @extend %delete;
+    color: $color-middle-grey;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: auto;
+    margin-right: 0.5rem;
+    padding: 0rem;
+    border: none;
+    border-radius: 50%;
+    box-sizing: content-box;
+}
+
+.icon-adj {
+    display: block;
+    margin-top: -0.08rem;
+    margin-left: 0.05rem;
+}
+
+.add-group {
+    background-color: $color-grey;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    padding: 0.75rem 1.25rem;
+}
+
+.add-group-label {
+    @extend %btn-label;
+    width: 50%;
+}
+
+.add-group-name {
+    width: 50%;
+}
+
+.btn-add-group {
+    @extend %btn-add;
+    padding: 0.08rem 1.5rem;
+}
