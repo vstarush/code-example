@@ -1,6 +1,7 @@
 # Table component Build via Angular 5 and SCSS
-#Mockups:
-<a href="https://imgbb.com/"><img src="https://image.ibb.co/hnDoQ0/mk1.jpg" alt="mk1" border="0"></a>
-<a href="https://imgbb.com/"><img src="https://image.ibb.co/kkSF50/mk2.jpg" alt="mk2" border="0"></a>
-<a href="https://imgbb.com/"><img src="https://image.ibb.co/bvaPyL/mk3.jpg" alt="mk3" border="0"></a>
-<a href="https://imgbb.com/"><img src="https://image.ibb.co/ePTzXf/mk4.jpg" alt="mk4" border="0"></a>
+
+Mockups:
+<img src="https://image.ibb.co/hnDoQ0/mk1.jpg" alt="mk1" border="0">
+<img src="https://image.ibb.co/kkSF50/mk2.jpg" alt="mk2" border="0">
+<img src="https://image.ibb.co/bvaPyL/mk3.jpg" alt="mk3" border="0">
+<img src="https://image.ibb.co/ePTzXf/mk4.jpg" alt="mk4" border="0">
